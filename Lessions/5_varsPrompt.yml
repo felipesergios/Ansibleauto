@@ -1,0 +1,28 @@
+---
+- name: Ansible Prompt | Creating User on linux
+  hosts: zabbix
+  vars_prompt:
+    - name: username
+      prompt: What is you name ?
+      private: false
+    - name: password
+      prompt: What is password ?
+      private: true
+      encrypt: "md5_crypt"
+      confirm: yes
+      salt_size: 7
+    - name: shell
+      prompt: What is your shell ?
+  tasks:
+    - name: Print a message
+      ansible.builtin.debug:
+        msg: 'Usuario: {{username}} | Password {{password}} | Shell: {{shell}}'
+    - name: USER | Add user
+      ansible.builtin.user:
+        name: "{{username}}"
+        comment: "User create by Ansible"
+        shell: "{{shell}}"
+        home: "/home/{{username}}"
+        password: "{{password}}"
+
+...

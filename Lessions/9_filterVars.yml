@@ -1,0 +1,13 @@
+---
+- name: Ansible Register Filters
+  hosts: zabbix
+  tasks:
+    - name: SISOP | Find Files
+      ansible.builtin.find:
+        path: /etc/zabbix
+        patterns: '*.conf'
+      register: output
+    - name: SISOP | Show Files
+      ansible.builtin.debug:
+        msg: "{{output.files | map(attribute='path')}}"
+...

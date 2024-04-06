@@ -1,0 +1,21 @@
+---
+- name: Start config into node application server
+  hosts: hostnameServer
+  tasks:
+   - name: Update Operation System | Security Packages | Target Debian
+     ansible.builtin.apt:
+      upgrade: safe
+   - name: Run set hostname server node
+     ansible.builtin.hostname:
+       name: webserver01
+   - name: COPY | Copy files from bastion host to webserver
+     ansible.builtin.copy:
+       src: /home/user/configfile.cfg
+       dest: /home/user/configfile.cfg
+       owner: sysadmin
+       group: sudo
+       mode: 0644
+     tags: copy
+
+...
+

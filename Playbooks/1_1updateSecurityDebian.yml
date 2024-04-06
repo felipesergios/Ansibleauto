@@ -1,0 +1,10 @@
+---
+- name: Update Security Packages Only
+  hosts: all
+  tasks:
+   - name: Update Safe Packages | Security | Targets Debian
+     ansible.builtin.apt:
+      upgrade: safe
+     tags: security
+...
+

@@ -1,0 +1,7 @@
+---
+- name: Update Debian Linux Servers
+  hosts: all
+  tasks:
+   - name: Debian Like | Update system all
+     ansible.builtin.apt: name="*" state=latest
+...
