@@ -1,0 +1,9 @@
+---
+- name: Ansible Loop Sequence
+  hosts: poseidon
+  tasks:
+    - name: Debug Module | show numbers
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_sequence: start=0 end=4 format=user%x
+...

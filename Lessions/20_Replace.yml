@@ -1,0 +1,17 @@
+---
+- name: Anible Handlers
+  hosts: poseidon
+  tasks:
+    - name: Nginx | Change Listner
+      ansible.builtin.replace:
+        dest: /tmp/text.conf
+        regexp: 'listen 80  default_server;'
+        replace: 'listen    80  {{ ansible_default_ipv4.address }}:80 default_server;'
+      notify: Restart Nginx
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: restarted
+        enabled: yes
+...

@@ -1,0 +1,10 @@
+---
+- name: Ansible Copy Files
+  hosts: poseidon
+  tasks:
+    - name: SYS | Copy Many Files
+      ansible.builtin.copy: src={{ item.src }} dest={{ item.dest }}
+      with_items:
+        - { src: '/tmp/file1.txt', dest: '/tmp/file1.txt'}
+        - { src: '/tmp/file2.txt', dest: '/tmp/file2.txt'}
+...

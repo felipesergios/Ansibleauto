@@ -1,0 +1,12 @@
+---
+- name: Ansible Loop with inner
+  hosts: poseidon
+  tasks:
+    - ansible.builtin.include_tasks: inner.yml
+      loop:
+        - 1
+        - 2
+        - 3
+      loop_control:
+        loop_var: outer_item
+...

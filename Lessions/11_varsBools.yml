@@ -1,0 +1,18 @@
+---
+- name:
+  hosts: all
+  vars:
+    backup : false
+    snapshot : true
+  tasks:
+    - name: Run the tasks if 'backup' or 'snapshot' is true
+      ansible.builtin.debug:
+        msg: "Remember ,snapshot is not backup"
+      when: backup or snapshot | bool
+    - name: Run task if 'backup' is not valid
+      ansible.builtin.debug:
+        msg: "Critical Make backup"
+      when: not backup
+  
+
+...

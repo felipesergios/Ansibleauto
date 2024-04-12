@@ -1,0 +1,12 @@
+---
+
+- name: Rocky | Update System
+  ansible.builtin.import_tasks: rocky.yml
+  when: ansible_distribution == "Rocky"
+
+- name: Debian | Update System
+  ansible.builtin.import_tasks: debian.yml
+  when: ansible_distribution == "Debian"
+
+...
+# tasks file for linux-update

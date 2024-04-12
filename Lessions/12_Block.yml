@@ -1,0 +1,25 @@
+---
+- name: Block Testing
+  hosts: poseidon
+  tasks:
+    - block:
+
+        - ansible.builtin.debug:
+
+            msg: "##Executando#Normalmente###"
+        - name: Simulando Erros
+          ansible.builtin.shell: ./configure
+          args:
+            chdir: /tmp
+        - ansible.builtin.debug:
+            msg: "Nunca sera executado"
+      rescue:
+        - ansible.builtin.debug:
+            msg: "Error falha no targer {{inventory_hostname}}"
+      always:
+        - name: SISOP | Update Sys
+          ansible.builtin.debug:
+            msg: "OK"
+
+
+...

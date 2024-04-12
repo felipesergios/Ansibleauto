@@ -1,0 +1,6 @@
+---
+- name: Main Playbook
+  hosts: zabbix
+  roles:
+   - linux-update
+...

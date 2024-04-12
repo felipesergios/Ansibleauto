@@ -1,0 +1,16 @@
+---
+
+- name: Ansible Loop Simple
+  hosts: poseidon
+  tasks:
+    - name: User | Add user
+      ansible.builtin.user:
+        name: "{{item}}"
+        state: present
+        group: "sudo"
+      loop:
+        - user1
+        - user2
+        - user3
+
+...

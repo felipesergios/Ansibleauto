@@ -1,0 +1,20 @@
+---
+- name: Ansible Stat
+  hosts: poseidon
+  tasks:
+    - name: SISOP | Verificando se o arquivo existe
+      ansible.builtin.stat: path=/tmp/ansible.cfg
+      register: file_output
+
+    - ansible.builtin.debug:
+        msg: "File found"
+      when: file_output.stat.exists
+
+    - ansible.builtin.debug:
+        msg: "File not found ;-;"
+      when: file_output.stat.exists == false
+
+    - ansible.builtin.debug:
+        msg: "File owner has changed"
+      when: file_output.stat.pw_name != 'sysadmin'
+...
