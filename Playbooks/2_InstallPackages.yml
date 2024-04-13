@@ -1,0 +1,24 @@
+---
+- name: Sysadmin task | Install essential packs
+  hosts: all
+  tasks:
+    - name: Operating system liked => {{ ansible_distribution }} | Install Apps ==> {{ ansible_hostname }}
+      ansible.builtin.apt:
+        name:
+          - tcpdump
+          - tree
+          - htop
+          - screen
+        state: latest
+      when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+  
+  
+    - name: Operating system liked => {{ ansible_distribution }} | Install Apps ==> {{ ansible_hostname }}
+      ansible.builtin.yum:
+        name:
+        - tcpdump
+        - tree
+        - screen
+        state: latest
+      when: ansible_distribution == "CentOS" or ansible_distribution == "Rocky"
+...

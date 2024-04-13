@@ -1,0 +1,27 @@
+---
+- name: Ansible Loop Sequence
+  hosts: zabbix
+  tasks:
+    - name: Create Directories in {{ ansible_hostname }}
+      ansible.builtin.file:
+        path: /tmp/{{ item }}
+        state: directory
+        mode: 665
+        owner: root
+        group: root
+      #with_sequence: start=1 end=12 format=%x
+      loop:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+
+...
