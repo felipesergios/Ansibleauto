@@ -1,0 +1,66 @@
+---
+# tasks file for nginx-deploy
+- name: SYSTEM | Configuring Nginx repository on {{ ansible_distribution }}
+  ansible.builtin.copy:
+    src: nginx.repo
+    dest: /etc/yum.repos.d/nginx.repo
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "CentOS" or ansible_distribution == "Rocky"
+  tags: repo_nginx
+
+- name: Updating system target {{ ansible_distribution }}
+  ansible.builtin.yum: name=* state=latest update_cache=yes
+  when: ansible_distribution == "CentOS" or ansible_distribution == "Rocky"
+  tags: update_system
+- name: NGINX | Installing nginx web server on {{ ansible_hostname }}
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+  tags: install_nginx
+
+- name: NGINX | Creating directories
+  ansible.builtin.file: path="{{item}}" state=directory mode=700 owner=root group=root
+  with_items: 
+    - /etc/nginx/features
+    - /etc/nginx/cert
+    - /etc/nginx/vhosts.d
+    
+
+- name: NGINX | Coping files
+  ansible.builtin.copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: 0644
+    force: yes
+    backup: yes
+  with_items: 
+    - { src: 'nginx.conf', dest: '/etc/nginx/nginx.conf' }
+    - { src: 'gzip.conf', dest: '/etc/nginx/features/gzip.conf' }
+    - { src: 'ssl.conf', dest: '/etc/nginx/features/ssl.conf' }
+    - { src: 'vhost.example', dest: '/etc/nginx/vhosts.d/vhost.example' }
+    - { src: 'dhparam.pem', dest: '/etc/nginx/cert/dhparam.pem' }
+  tags: copy_files_nginx
+
+- name: NGINX | Creating nginx root directory
+  ansible.builtin.file:
+    path: "{{ root_dir }}"
+    state: directory
+    mode: 0775
+    owner: nginx
+    group: nginx
+    recurse: yes
+
+- name: NGINX | extracting static website files
+  ansible.builtin.unarchive:
+    src: website.tar.gz
+    dest: "{{ root_dir }}"
+    owner: nginx
+    group: nginx
+    remote_src: no
+  notify: Restarting nginx
+
+... 

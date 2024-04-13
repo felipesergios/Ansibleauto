@@ -1,6 +1,8 @@
 ---
 - name: Main Playbook
-  hosts: zabbix
+  hosts: hypervisor
   roles:
-   - linux-update
+   #- linux-update
+   #- temp
+   - nginx-deploy
 ...

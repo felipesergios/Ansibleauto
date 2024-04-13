@@ -1,0 +1,45 @@
+# Created by Ansible
+# Sample Vhost using PHP-FPM
+
+server {
+	listen				            80;
+ 	server_name			            _;
+	return				            301 https://$host$request_uri;
+}
+
+server {
+  	server_name                 	_;
+  	listen                      	443 ssl http2;
+  	root                        	/var/www/html;
+
+  	include                     	features/ssl.conf;
+  	ssl_certificate             	cert/cert.crt;
+  	ssl_certificate_key         	cert/cert.key;
+
+  	add_header                  	Strict-Transport-Security "max-age=31536000";
+  	access_log                  	/var/log/nginx/example_access.log;
+  	error_log                   	/var/log/nginx/example_error.log;
+  	index                       	index.php;
+
+  	location / {
+		try_files		            $uri $uri/ @rewrite;
+		include			            features/features.conf;
+  	}
+
+  	location @rewrite {
+    		rewrite                 ^/(.*)$ /index.php;
+  	}
+
+  	location ~ \.php$ {
+    		include                   fastcgi_params;
+    		fastcgi_pass              unix:/var/run/php-fpm/php-fpm.sock;
+    		fastcgi_index             index.php;
+    		fastcgi_param             SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    		try_files                 $uri @rewrite;
+  	}
+
+  	location                          ~* .(svg|ico|jpg|png|gif|jpeg|css|js|mp3|mp4|wav|swf|mov|doc|pdf|xls|ppt|docx|pptx|xlsx|eot|otf|ttf|woff|woff2)$ {
+    		expires                   max;
+    		add_header                Access-Control-Allow-Origin *;
+  	}
+}

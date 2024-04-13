@@ -1,0 +1,13 @@
+---
+
+- name: System | Copy Files
+  ansible.builtin.copy: src={{ item.src }} dest={{ item.dest }}
+  with_items: 
+    - { src: 'file1.conf', dest: '/tmp/file1.conf' }
+    - { src: 'file2.conf', dest: '/tmp/file2.conf' }
+- name: System | Extract file
+  ansible.builtin.unarchive:
+    src: file.tar.gz
+    dest: /tmp
+# tasks file for temp
+...
