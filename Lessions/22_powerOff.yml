@@ -1,0 +1,9 @@
+---
+- name: Desligamento emergencial da Stack
+  hosts: hypervisor
+  become: true
+  tasks:
+    - name: Shutdown Hypervisor now | Target Hypervisor
+      shell: shutdown -h now
+
+...
