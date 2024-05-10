@@ -1,0 +1,8 @@
+---
+
+- name: Operating system liked => {{ ansible_distribution }} | Install Apps ==> {{ ansible_hostname }}
+  ansible.builtin.yum:
+    name: "{{ apps_rhel }}"
+    state: latest
+
+...

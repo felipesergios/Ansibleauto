@@ -1,0 +1,10 @@
+---
+
+- name: Operating system liked => {{ ansible_distribution }} | Install Apps ==> {{ ansible_hostname }}
+  ansible.builtin.apt:
+    name: "{{ apps_deb }}"
+    state: latest
+
+
+
+...

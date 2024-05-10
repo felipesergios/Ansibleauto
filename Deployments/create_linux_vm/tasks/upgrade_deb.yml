@@ -1,0 +1,9 @@
+---
+- name: Update cache ===> {{ ansible_distribution }}
+  ansible.builtin.apt:
+    update_cache: yes
+- name: Upgrade all packages {{ ansible_distribution }}
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+...

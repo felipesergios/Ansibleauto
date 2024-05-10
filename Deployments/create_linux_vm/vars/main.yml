@@ -1,0 +1,10 @@
+---
+apps_deb:
+  - sudo
+  - screen
+  - htop
+  - tcpdump
+apps_rhel:
+  - tcpdump
+  - tree
+...

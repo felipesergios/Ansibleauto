@@ -1,0 +1,10 @@
+---
+- name: Creating user lnx_user in {{ ansible_hostname }} | Target ===> {{ ansible_distribution }}
+  ansible.builtin.user:
+    name: "lnx_user"
+    comment: "User created by Ansible Automation"
+    shell: "/bin/sh"
+    groups: wheel
+    home: "/home/lnx_user"
+    password: "YOUPASSWORDHERE"
+... 

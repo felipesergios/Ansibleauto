@@ -1,0 +1,7 @@
+---
+- name: Upgrade system RedHat Liked
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+...

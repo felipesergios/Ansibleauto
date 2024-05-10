@@ -1,0 +1,39 @@
+---
+# tasks file for create_linux_vm
+- name: Show Vars File nutanix
+  ansible.builtin.debug:
+    msg: "{{ apps_rhel }}"
+
+# Upgrading System Operational 
+- name: Upgrade System | Target RedHat Based
+  include_tasks: upgrade_rhel.yml
+  when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"
+
+- name: Upgrade System | Target Debian like
+  include_tasks: upgrade_deb.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+# Configure Default User in New VM 
+
+- name: Configure user in Debian 
+  include_tasks: create_user.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Configure user in RedHat Based
+  include_tasks: create_user_rhel.yml
+  when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"
+
+# Install some apps to administrative operations in new server
+
+- name: Installing Essentials softwares in Debian Server
+  include_tasks: install_softwares_deb.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+
+- name: Installing Essentials softwares in RedHat Server
+  include_tasks: install_softwares_rhel.yml
+  when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"
+
+
+
+
+...
