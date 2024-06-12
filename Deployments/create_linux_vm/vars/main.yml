@@ -7,4 +7,7 @@ apps_deb:
 apps_rhel:
   - tcpdump
   - tree
+passuser: "yourpassword"
+username: "yournameuser"
+hostname: "yourhostname"
 ...

@@ -1,0 +1,5 @@
+---
+- name: Change hostname to {{ hostname }}a new machine
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+...

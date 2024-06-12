@@ -1,0 +1,6 @@
+---
+- name: Main playbook role
+  hosts: fenix
+  roles:
+    - create_linux_vm
+...

@@ -32,7 +32,9 @@
 - name: Installing Essentials softwares in RedHat Server
   include_tasks: install_softwares_rhel.yml
   when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"
-
+# Set hostname in new VM 
+- name: Seting hostname in Linux Server for {{ hostname }}
+  include_tasks: configure_system.yml
 
 
 
