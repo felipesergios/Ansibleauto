@@ -1,0 +1,18 @@
+---
+# tasks file for nginx-deploy-single
+- name: show webserver prepare to install
+  ansible.builtin.debug:
+    msg: "{{ apps_deb }}"
+
+- name: Installing webserver
+  include_tasks: install_app.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Deployment webserver
+  include_tasks: deploy_static_site.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: Restarting webserver
+  include_tasks: restart_nginx.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+...

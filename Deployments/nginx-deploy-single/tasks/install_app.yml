@@ -1,0 +1,6 @@
+---
+- name: Operating system liked => {{ ansible_distribution }} | Install webserver in ==> {{ ansible_hostname }}
+  ansible.builtin.apt:
+    name: "{{ apps_deb }}"
+    state: latest
+...

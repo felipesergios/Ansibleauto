@@ -1,0 +1,24 @@
+---
+- name: NGINX | extracting static website files in {{ webserver_dir }}
+  ansible.builtin.unarchive:
+    src: "{{ deafult_site_name }}.tar.gz"
+    dest: "{{ webserver_dir }}"
+
+- name: NGINX | Coping vhost files to webserver host
+  ansible.builtin.copy:
+    src: site.conf
+    dest: "{{ default_nginx_directory }}"
+
+- name: NGINX | Replace vhost file to new using DNS
+  ansible.builtin.replace:
+    dest: /etc/nginx/sites-enabled/site.conf
+    regexp: 'server_name mysite.com;'
+    replace: 'server_name {{ default_nginx_dns }};'
+
+- name: NGINX | Replace vhost root location to "/var/www/{{ deafult_site_name }}"
+  ansible.builtin.replace:
+    dest: /etc/nginx/sites-enabled/site.conf
+    regexp: 'root /var/www;'
+    replace: 'root /var/www/{{ deafult_site_name }};'
+
+...

@@ -1,1 +1,2 @@
 .vscode
+Deployments/nginx-deploy-single/files/*.tar.gz

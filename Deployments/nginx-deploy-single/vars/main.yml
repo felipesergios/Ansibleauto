@@ -1,0 +1,10 @@
+---
+# vars file for nginx-deploy-single
+apps_deb:
+  - nginx
+webserver_dir: /var/www
+default_nginx_directory: /etc/nginx/sites-enabled
+default_nginx_dns: "www.mysite.com"
+deafult_site_name: myfoldername
+
+...
