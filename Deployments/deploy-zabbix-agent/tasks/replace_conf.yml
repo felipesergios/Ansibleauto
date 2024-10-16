@@ -1,0 +1,20 @@
+---
+- name: REMOTE SRV | Replace IP in zabbix_agent2.conf file to zabbix server IP => {{ default_zabbix_server }}
+  ansible.builtin.replace:
+    path: "/etc/zabbix/zabbix_agent2.conf"
+    regexp: '127\.0\.0\.1'
+    replace: "{{ default_zabbix_server }}"
+    backup: yes
+
+- name: REMOTE SRV | Replace Hostname in zabbix_agent2.conf file to => {{ default_zabbix_agent_hostname }}
+  ansible.builtin.replace:
+    path: "/etc/zabbix/zabbix_agent2.conf"
+    regexp: 'Zabbix server'
+    replace: "{{ default_zabbix_agent_hostname }}"
+    backup: yes
+
+- name: REMOTE SRV | Restarting Zabbix Agent Service in {{ ansible_hostname }} to apply configurations
+  ansible.builtin.service:
+    name: zabbix-agent2
+    state: restarted
+...

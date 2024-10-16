@@ -1,0 +1,15 @@
+---
+- name: REMOTE SRV [Like OL9]| Moving script to {{ default_remote_directory }} in remote server
+  ansible.builtin.copy:
+    src: inst_ol9.sh
+    dest: "{{ default_remote_directory }}"
+    mode: '0775'
+  when: ansible_distribution == "OracleLinux" or ansible_distribution == "Oracle Linux"
+
+- name: REMOTE SRV [Like DEB]| Moving script to {{ default_remote_directory }} in remote server
+  ansible.builtin.copy:
+    src: inst_deb.sh
+    dest: "{{ default_remote_directory }}"
+    mode: '0775'
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+...

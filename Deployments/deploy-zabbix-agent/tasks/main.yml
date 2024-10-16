@@ -1,0 +1,13 @@
+---
+- name: Perform necessary checks on the remote server
+  include_tasks: verify.yml
+
+- name: Copying resources to remote server 
+  include_tasks: copy_resources.yml 
+
+- name: Starting installation of agent 2
+  include_tasks: install_agent.yml
+
+- name: Replace Config File and Restart Service
+  include_tasks: replace_conf.yml
+...

@@ -1,0 +1,15 @@
+---
+- name: REMOTE SRV [Like OL9]| Executing script of installation and save logs
+  ansible.builtin.shell: "{{ default_remote_directory }}/inst_ol9.sh > /var/log/ansible_zbx_agent_inst.log 2>&1"
+  args:
+        chdir: "{{ default_remote_directory }}"
+        creates: /var/log/ansible_zbx_agent_inst.log
+  when: ansible_distribution == "OracleLinux" or ansible_distribution == "Oracle Linux"
+
+- name: REMOTE SRV [Like DEB]| Executing script of installation and save logs
+  ansible.builtin.shell: "{{ default_remote_directory }}/inst_deb.sh > /var/log/ansible_zbx_agent_inst.log 2>&1"
+  args:
+        chdir: "{{ default_remote_directory }}"
+        creates: /var/log/ansible_zbx_agent_inst.log
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+...

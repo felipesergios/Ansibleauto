@@ -1,0 +1,32 @@
+# Verify If System Operation and Versions are Compatible
+- name:  Checking if OS versions are compatible
+  ansible.builtin.fail:
+    msg: "S.O Version are not Supported"
+  when: not ((ansible_distribution == "OracleLinux" or ansible_distribution == "Oracle Linux") and ansible_distribution_major_version == "9") and not (ansible_distribution == "Debian" and ansible_distribution_major_version == "12")
+
+- name: REMOTE SRV | Verifying if file exist in remote server
+  ansible.builtin.stat: path=/etc/zabbix/zabbix_agent2.conf
+  register: zabbix_agent2_status
+
+#Debug operations
+- name: File of zabbix agent not found
+  ansible.builtin.debug:
+    msg: "file of zabbix agent not found"
+  when: zabbix_agent2_status.stat.exists == false
+
+- name: File of zabbix agent found
+  ansible.builtin.debug:
+    msg: "file of zabbix agent found"
+  when: zabbix_agent2_status.stat.exists == true
+#
+- name:  Stopping operations - possible installation found on remote server
+  ansible.builtin.fail:
+    msg: "Apparently the zabbix agent service exists here. stopping the installation now"
+  when: zabbix_agent2_status.stat.exists == true
+
+
+        
+     
+
+    
+
