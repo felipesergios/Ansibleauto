@@ -1,5 +1,5 @@
 ---
-default_remote_directory: /path/to/directory
-default_zabbix_server: 192.168.1.100
-default_zabbix_agent_hostname: my_monitored_host
+default_remote_directory: YOUR_DIR
+default_zabbix_server: IP_SERVER_ZBX
+default_zabbix_agent_hostname: HOSTNAME
 ...

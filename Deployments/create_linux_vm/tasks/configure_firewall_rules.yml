@@ -1,0 +1,21 @@
+- name: Starting and enable firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Allow SSH Traffic Opening port number 22 in permanent mode
+  ansible.builtin.firewalld:
+    port: 22/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+    zone: public
+
+- name: Block ICMP Traffic in permanent mode
+  ansible.builtin.firewalld:
+    rich_rule: 'rule family="ipv4" protocol value="icmp" drop'
+    permanent: yes
+    state: enabled
+    immediate: yes
+    zone: public

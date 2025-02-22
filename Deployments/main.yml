@@ -1,6 +1,6 @@
 ---
 - name: Main playbook role
-  hosts: fenix
+  hosts: template
   roles:
     - create_linux_vm
 ...

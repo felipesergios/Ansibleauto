@@ -4,10 +4,12 @@ apps_deb:
   - screen
   - htop
   - tcpdump
+  - wget
+  - curl
 apps_rhel:
   - tcpdump
   - tree
-passuser: "yourpassword"
-username: "yournameuser"
-hostname: "yourhostname"
+passuser: "yourpass"
+username: "username"
+hostname: "hostname"
 ...

@@ -1,0 +1,13 @@
+- name: Installing Firewalld on {{ ansible_hostname }} [DEBIAN]
+  ansible.builtin.apt:
+    name: firewalld
+    state: present
+    update_cache: yes
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+
+- name: Installing Firewalld on {{ ansible_hostname }} [RHEL/Oracle Linux 9]
+  ansible.builtin.yum:
+    name: firewalld
+    state: present
+  when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"

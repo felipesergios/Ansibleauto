@@ -28,13 +28,24 @@
   include_tasks: install_softwares_deb.yml
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
-
 - name: Installing Essentials softwares in RedHat Server
   include_tasks: install_softwares_rhel.yml
   when: ansible_distribution == "CentOS" or ansible_distribution == "fedora"
+
 # Set hostname in new VM 
+
 - name: Seting hostname in Linux Server for {{ hostname }}
   include_tasks: configure_system.yml
+
+# Get firewalld package if it doesn't exist and enable it in systemd
+
+- name: Run install firewall on host
+  include_tasks: install_firewall.yml
+
+# Set Firewall Initial Rules - open 22 port protocol ssh only and drop icmp requests
+
+- name: Set Firewall Initial Rules
+  include_tasks: configure_firewall_rules.yml
 
 
 
